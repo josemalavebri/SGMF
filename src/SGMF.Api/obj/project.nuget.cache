@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xzsKYiSy3po=",
+  "dgSpecHash": "p+4+XfYyzH0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\josem\\Programacion\\Proyectos Produccion\\SGMF\\Project\\src\\SGMF.Api\\SGMF.Api.csproj",
+  "projectFilePath": "C:\\Users\\josem\\Programacion\\Proyectos Produccion\\SGMF\\Project\\src\\SGMF.Api\\SGMF.api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\josem\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.12\\microsoft.aspnetcore.openapi.10.0.12.nupkg.sha512",
     "C:\\Users\\josem\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.13\\microsoft.bcl.cryptography.9.0.13.nupkg.sha512",

@@ -1,0 +1,109 @@
+# ============================
+# Application 
+# ============================
+storage/
+logs/
+
+# ============================
+# Build Folders
+# ============================
+bin/
+obj/
+out/
+TestResults/
+
+# ============================
+# Visual Studio / Rider / VSCode
+# ============================
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ide
+*.backup.json
+*.sql
+
+# ============================
+# NuGet Packages
+# ============================
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ============================
+# Rider IDE
+# ============================
+.idea/
+
+# ============================
+# ASP.NET / MVC / WebAPI
+# ============================
+App_Data/
+*.db
+*.log
+*.vspscc
+*.vssscc
+
+# ============================
+# Publish / Deploy Output
+# ============================
+*.publishsettings
+*.pubxml
+*.pubxml.user
+*.deploy.cmd
+*.deploy-readme.txt
+
+# ============================
+# DotNet Core / SDK
+# ============================
+*.dotCover
+*.dotCover.*.xml
+*.coverage
+*.coveragexml
+*.trx
+*.userprefs
+*.local
+*.lock.json
+project.lock.json
+
+# ============================
+# Secret / Local Config
+# ============================
+appsettings.Local.json
+*.secret.json
+
+# ============================
+# Test Results
+# ============================
+TestResults/
+*.Tests.dll
+*.Tests.pdb
+*.Tests.exe
+
+# ============================
+# Other Temporary Files
+# ============================
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# ============================
+# Archivos de usuario de Visual Studio
+# ============================
+.vs/
+*.suo
+*.json
+
+# ============================
+# Otros Archivos
+# ============================
+*.editorconfig
+*.prettierrc
+Tareas.md
+*.rest
