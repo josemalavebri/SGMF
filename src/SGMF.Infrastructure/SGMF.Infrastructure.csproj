@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SGMF.Application\SGMF.Application.csproj" />
+    <ProjectReference Include="..\SGMF.Domain\SGMF.Domain.csproj" />
   </ItemGroup>
 
 </Project>

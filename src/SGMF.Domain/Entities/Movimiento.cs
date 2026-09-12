@@ -1,0 +1,18 @@
+namespace SGMF.Domain.Entities;
+
+public class Movimiento
+{
+    public int IdMovimiento { get; set; }
+
+    public int IdTipoMovimiento { get; set; }
+
+    public int? IdTipoIngreso { get; set; }
+
+    public int? IdCategoriaEgreso { get; set; }
+
+    public decimal Monto { get; set; }
+
+    public string Descripcion { get; set; } = string.Empty;
+
+    public DateTime Fecha { get; set; }
+}
