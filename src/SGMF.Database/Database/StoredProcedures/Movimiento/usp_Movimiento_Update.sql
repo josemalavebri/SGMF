@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_Movimiento_Update
 @IdMovimiento INT, @IdTipoMovimiento INT, @IdTipoIngreso INT=NULL, @IdCategoriaEgreso INT=NULL, @Monto DECIMAL (12, 2), @Descripcion VARCHAR (200)
@@ -15,3 +12,4 @@ BEGIN
          Descripcion       = @Descripcion
   WHERE  IdMovimiento = @IdMovimiento;
 END
+GO

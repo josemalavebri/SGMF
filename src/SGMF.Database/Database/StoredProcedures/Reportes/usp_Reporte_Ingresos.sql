@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_Reporte_Ingresos
 AS
@@ -18,3 +15,4 @@ BEGIN
   WHERE    m.IdTipoMovimiento = 1
   ORDER BY m.Fecha DESC, m.IdMovimiento DESC;
 END
+GO

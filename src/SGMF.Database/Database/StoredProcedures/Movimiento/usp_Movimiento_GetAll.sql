@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_Movimiento_GetAll
 AS
@@ -16,3 +13,4 @@ BEGIN
   FROM     Movimiento
   ORDER BY Fecha DESC, IdMovimiento DESC;
 END
+GO

@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_CategoriaEgreso_Delete
 @IdCategoriaEgreso INT
@@ -11,3 +8,4 @@ BEGIN
   SET    Activo = 0
   WHERE  IdCategoriaEgreso = @IdCategoriaEgreso;
 END
+GO

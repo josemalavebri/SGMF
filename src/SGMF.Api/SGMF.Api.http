@@ -1,6 +1,124 @@
-@SGMF.Api_HostAddress = http://localhost:5037
+@baseUrl = http://localhost:5037
 
-GET {{SGMF.Api_HostAddress}}/weatherforecast/
-Accept: application/json
 
-###
+### =========================================================
+### TIPO MOVIMIENTO
+### =========================================================
+
+### Obtener tipos de movimiento
+GET {{baseUrl}}/api/tipos-movimiento
+
+
+### =========================================================
+### TIPOS DE INGRESO
+### =========================================================
+
+### Obtener tipos de ingreso
+GET {{baseUrl}}/api/tipos-ingreso
+
+
+### Crear tipo de ingreso
+POST {{baseUrl}}/api/tipos-ingreso
+Content-Type: application/json
+
+{
+    "nombre": "Freelance"
+}
+
+
+### Actualizar tipo de ingreso
+PUT {{baseUrl}}/api/tipos-ingreso/6
+Content-Type: application/json
+
+{
+    "nombre": "Trabajo freelance"
+}
+
+
+### Eliminar tipo de ingreso
+DELETE {{baseUrl}}/api/tipos-ingreso/6
+
+
+### =========================================================
+### CATEGORÍAS DE EGRESO
+### =========================================================
+
+### Obtener categorías de egreso
+GET {{baseUrl}}/api/categorias-egreso
+
+
+### Crear categoría de egreso
+POST {{baseUrl}}/api/categorias-egreso
+Content-Type: application/json
+
+{
+    "nombre": "Entretenimiento"
+}
+
+
+### Actualizar categoría de egreso
+PUT {{baseUrl}}/api/categorias-egreso/4
+Content-Type: application/json
+
+{
+    "nombre": "Entretenimiento y ocio"
+}
+
+
+### Eliminar categoría de egreso
+DELETE {{baseUrl}}/api/categorias-egreso/4
+
+
+### =========================================================
+### MOVIMIENTOS
+### =========================================================
+
+### Obtener todos los movimientos
+GET {{baseUrl}}/api/movimientos
+
+
+### Obtener movimiento por ID
+GET {{baseUrl}}/api/movimientos/1
+
+
+### Crear ingreso
+POST {{baseUrl}}/api/movimientos
+Content-Type: application/json
+
+{
+    "idTipoMovimiento": 1,
+    "idTipoIngreso": 1,
+    "idCategoriaEgreso": null,
+    "monto": 1500.00,
+    "descripcion": "Salario mensual"
+}
+
+
+### Crear egreso
+POST {{baseUrl}}/api/movimientos
+Content-Type: application/json
+
+{
+    "idTipoMovimiento": 2,
+    "idTipoIngreso": null,
+    "idCategoriaEgreso": 1,
+    "monto": 25.50,
+    "descripcion": "Compra de alimentos"
+}
+
+
+### Actualizar movimiento
+PUT {{baseUrl}}/api/movimientos/1
+Content-Type: application/json
+
+{
+    "idTipoMovimiento": 1,
+    "idTipoIngreso": 1,
+    "idCategoriaEgreso": null,
+    "monto": 1600.00,
+    "descripcion": "Salario mensual actualizado"
+}
+
+
+### Eliminar movimiento
+DELETE {{baseUrl}}/api/movimientos/1

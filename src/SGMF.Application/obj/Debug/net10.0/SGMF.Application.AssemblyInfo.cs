@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SGMF.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b89fa8d176c5d26caa1eb854629496fba61c1624")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1a25ee8be6278ff44597e73e891baee052c60a8")]
 [assembly: System.Reflection.AssemblyProductAttribute("SGMF.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SGMF.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

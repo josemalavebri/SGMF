@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_CategoriaEgreso_Create
 @Nombre VARCHAR (50)
@@ -13,3 +10,4 @@ BEGIN
   VALUES                      (@Nombre);
   SELECT CAST (SCOPE_IDENTITY() AS INT) AS IdCategoriaEgreso;
 END
+GO

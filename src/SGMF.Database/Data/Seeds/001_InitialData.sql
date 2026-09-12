@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 IF NOT EXISTS (SELECT 1
                FROM   TipoMovimiento
@@ -105,3 +102,4 @@ IF NOT EXISTS (SELECT 1
     )
     VALUES                      ('Otros');
   END
+GO

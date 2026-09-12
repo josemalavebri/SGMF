@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_Movimiento_GetById
 @IdMovimiento INT
@@ -17,3 +14,4 @@ BEGIN
   FROM   Movimiento
   WHERE  IdMovimiento = @IdMovimiento;
 END
+GO

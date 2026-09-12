@@ -1,5 +1,3 @@
-USE SGMF;
-
 
 GO
 DECLARE @Ingreso AS INT;
@@ -42,3 +40,4 @@ INSERT  INTO Movimiento (
 VALUES                 (@Ingreso, @Salario, NULL, 800.00, 'Salario mensual'),
 (@Egreso, NULL, @Responsabilidades, 50.00, 'Pago de internet'),
 (@Egreso, NULL, @GastosHormiga, 2.50, 'Refresco');
+GO

@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_TipoIngreso_GetAll
 AS
@@ -13,3 +10,4 @@ BEGIN
   WHERE    Activo = 1
   ORDER BY Nombre;
 END
+GO

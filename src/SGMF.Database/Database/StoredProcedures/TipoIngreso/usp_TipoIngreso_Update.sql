@@ -1,6 +1,3 @@
-USE SGMF;
-
-
 GO
 CREATE OR ALTER PROCEDURE usp_TipoIngreso_Update
 @IdTipoIngreso INT, @Nombre VARCHAR (50)
@@ -12,3 +9,4 @@ BEGIN
   WHERE  IdTipoIngreso = @IdTipoIngreso
          AND Activo = 1;
 END
+GO

@@ -23,7 +23,6 @@ TestResults/
 *.sln.docstates
 *.ide
 *.backup.json
-*.sql
 
 # ============================
 # NuGet Packages
