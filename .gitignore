@@ -1,22 +1,22 @@
-# ============================
-# Application 
-# ============================
+# ============================================================
+# APPLICATION
+# ============================================================
 storage/
 logs/
 
-# ============================
-# Build Folders
-# ============================
+# ============================================================
+# BUILD / COMPILED OUTPUT
+# ============================================================
 bin/
 obj/
 out/
 TestResults/
+artifacts/
 
-# ============================
-# Visual Studio / Rider / VSCode
-# ============================
+# ============================================================
+# VISUAL STUDIO
+# ============================================================
 .vs/
-.vscode/
 *.suo
 *.user
 *.userosscache
@@ -24,85 +24,174 @@ TestResults/
 *.ide
 *.backup.json
 
-# ============================
-# NuGet Packages
-# ============================
-packages/
-*.nupkg
-project.lock.json
-project.fragment.lock.json
-artifacts/
-
-# ============================
-# Rider IDE
-# ============================
+# ============================================================
+# RIDER
+# ============================================================
 .idea/
 
-# ============================
-# ASP.NET / MVC / WebAPI
-# ============================
+# ============================================================
+# VS CODE
+# ============================================================
+.vscode/
+
+# ============================================================
+# NUGET
+# ============================================================
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# ============================================================
+# .NET / ASP.NET CORE
+# ============================================================
 App_Data/
 *.db
-*.log
-*.vspscc
-*.vssscc
+*.sqlite
+*.sqlite3
 
-# ============================
-# Publish / Deploy Output
-# ============================
+*.dll
+*.pdb
+*.cache
+*.coverage
+*.coveragexml
+*.trx
+
+*.dotCover
+*.dotCover.*.xml
+
+*.userprefs
+*.local
+*.lock.json
+
+# ============================================================
+# PUBLISH / DEPLOY
+# ============================================================
 *.publishsettings
 *.pubxml
 *.pubxml.user
 *.deploy.cmd
 *.deploy-readme.txt
 
-# ============================
-# DotNet Core / SDK
-# ============================
-*.dotCover
-*.dotCover.*.xml
-*.coverage
-*.coveragexml
-*.trx
-*.userprefs
-*.local
-*.lock.json
-project.lock.json
+# ============================================================
+# ASP.NET SOURCE CONTROL / TEMPORARY
+# ============================================================
+*.vspscc
+*.vssscc
 
-# ============================
-# Secret / Local Config
-# ============================
-appsettings.Local.json
-*.secret.json
-
-# ============================
-# Test Results
-# ============================
+# ============================================================
+# TEST RESULTS
+# ============================================================
 TestResults/
 *.Tests.dll
 *.Tests.pdb
 *.Tests.exe
 
-# ============================
-# Other Temporary Files
-# ============================
+# ============================================================
+# LOGS / TEMPORARY FILES
+# ============================================================
 *.log
 *.tmp
 *.temp
 *.bak
 *.swp
+*.swo
+*.orig
+*~
 
-# ============================
-# Archivos de usuario de Visual Studio
-# ============================
-.vs/
-*.suo
-*.json
+# ============================================================
+# LOCAL / SECRET CONFIGURATION
+# ============================================================
+appsettings.Local.json
+appsettings.*.local.json
+*.secret.json
+.env
+.env.*
+!.env.example
 
-# ============================
-# Otros Archivos
-# ============================
-*.editorconfig
-*.prettierrc
+# ============================================================
+# ANGULAR / NODE.JS
+# ============================================================
+
+# Dependencies
+node_modules/
+
+# Angular build output
+dist/
+.angular/
+out-tsc/
+
+# Angular cache
+.cache/
+.ng_build_cache/
+
+# npm
+.npm/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Package manager caches
+.npm/
+.yarn/
+.pnpm-store/
+
+# Optional package manager files
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# TypeScript
+*.tsbuildinfo
+
+# Angular environment files containing local secrets
+src/environments/*.local.ts
+
+# Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Coverage
+coverage/
+
+# ============================================================
+# ANGULAR IDE / LOCAL CONFIG
+# ============================================================
+.angular-cli.json
+.angular/cache/
+
+# ============================================================
+# OS FILES
+# ============================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ============================================================
+# WINDOWS
+# ============================================================
+$RECYCLE.BIN/
+*.lnk
+
+# ============================================================
+# ARCHIVOS GENERADOS / PERSONALES
+# ============================================================
 Tareas.md
 *.rest
