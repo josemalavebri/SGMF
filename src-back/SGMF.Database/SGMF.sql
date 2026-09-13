@@ -14,10 +14,3 @@
 :r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Scripts\07_CreateStoredProcedures.sql"
 :r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Scripts\08_SeedData.sql"
 
-
-SELECT
-    name,
-    type_desc
-FROM sys.objects
-WHERE type IN ('P', 'V', 'FN', 'IF', 'TF')
-ORDER BY type_desc, name;
