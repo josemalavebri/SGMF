@@ -1,0 +1,27 @@
+.breadcrumbs {
+  .breadcrumb {
+    font-size: var(--font-size-sm);
+  }
+
+  .breadcrumb-item {
+    color: var(--color-text-muted);
+
+    a {
+      color: var(--color-text-secondary);
+      transition: color var(--transition-fast);
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+
+    &.active {
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    &::before {
+      color: var(--color-text-disabled);
+    }
+  }
+}

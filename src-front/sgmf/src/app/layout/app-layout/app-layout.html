@@ -1,0 +1,28 @@
+<div
+  class="app-layout d-flex min-vh-100"
+  [class.app-layout--collapsed]="sidebarCollapsed"
+  [class.app-layout--mobile-open]="mobileSidebarOpen"
+>
+  <app-sidebar [collapsed]="sidebarCollapsed" [mobileOpen]="mobileSidebarOpen" />
+
+  @if (mobileSidebarOpen) {
+    <button
+      type="button"
+      class="app-layout__backdrop"
+      aria-label="Cerrar navegación"
+      (click)="closeMobileSidebar()"
+    ></button>
+  }
+
+  <div class="app-layout__workspace d-flex flex-column flex-grow-1">
+    <app-header [sidebarCollapsed]="sidebarCollapsed" (toggleSidebar)="toggleSidebar()" />
+
+    <div class="px-3 px-lg-4 pt-3">
+      <app-breadcrumbs />
+    </div>
+
+    <main class="app-layout__main flex-grow-1 p-3 p-lg-4 pt-0">
+      <router-outlet />
+    </main>
+  </div>
+</div>

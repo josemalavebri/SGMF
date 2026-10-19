@@ -1,0 +1,63 @@
+<header class="app-header d-flex align-items-center justify-content-between gap-3">
+  <div class="d-flex align-items-center gap-3 min-w-0">
+    <button
+      type="button"
+      class="app-header__toggle btn"
+      aria-label="Mostrar u ocultar navegación"
+      (click)="toggleSidebar.emit()"
+    >
+      <i
+        class="bi"
+        [class.bi-layout-sidebar-inset]="!sidebarCollapsed"
+        [class.bi-layout-sidebar]="sidebarCollapsed"
+        aria-hidden="true"
+      ></i>
+    </button>
+
+    <div class="app-header__heading">
+      <h1 class="app-header__title mb-0">{{ pageTitle }}</h1>
+    </div>
+  </div>
+
+  <div class="dropdown app-header__profile">
+    <button
+      type="button"
+      class="app-header__profile-toggle btn d-flex align-items-center gap-2"
+      [class.active]="profileMenuOpen"
+      [attr.aria-expanded]="profileMenuOpen"
+      aria-haspopup="true"
+      aria-label="Abrir menú del usuario"
+      (click)="toggleProfileMenu()"
+    >
+      <span class="app-header__avatar d-flex align-items-center justify-content-center">
+        {{ userInitials }}
+      </span>
+
+      <span class="app-header__user-name text-start">
+        {{ userName }}
+      </span>
+
+      <i
+        class="bi bi-chevron-down app-header__chevron"
+        [class.app-header__chevron--open]="profileMenuOpen"
+        aria-hidden="true"
+      ></i>
+    </button>
+
+    @if (profileMenuOpen) {
+      <div class="app-header__menu dropdown-menu dropdown-menu-end show">
+        <div class="app-header__menu-user">
+          <span class="app-header__menu-name">{{ userName }}</span>
+          <span class="app-header__menu-caption">Sesión activa</span>
+        </div>
+
+        <div class="dropdown-divider"></div>
+
+        <button type="button" class="dropdown-item app-header__logout" (click)="onLogout()">
+          <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+          Cerrar sesión
+        </button>
+      </div>
+    }
+  </div>
+</header>

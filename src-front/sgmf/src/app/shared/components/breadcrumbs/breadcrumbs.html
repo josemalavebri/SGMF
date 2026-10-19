@@ -1,0 +1,13 @@
+<nav aria-label="Migas de pan">
+  <ol class="breadcrumb mb-0">
+    @for (item of breadcrumbs(); track item.url + item.label; let last = $last) {
+      <li class="breadcrumb-item" [class.active]="last" [attr.aria-current]="last ? 'page' : null">
+        @if (last) {
+          <span>{{ item.label }}</span>
+        } @else {
+          <a [routerLink]="item.url">{{ item.label }}</a>
+        }
+      </li>
+    }
+  </ol>
+</nav>
