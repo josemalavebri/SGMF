@@ -1,1 +1,55 @@
-<p>movimiento-table works!</p>
+<div class="table-responsive">
+  <table class="table table-hover align-middle mb-0">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>Descripción</th>
+        <th class="text-end">Monto</th>
+        <th class="text-end">Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (movimiento of movimientos(); track movimiento.idMovimiento) {
+        <tr>
+          <td>
+            {{ movimiento.fecha | date: 'dd/MM/yyyy' }}
+          </td>
+
+          <td>
+            {{ movimiento.idTipoMovimiento === 1 ? 'Ingreso' : 'Egreso' }}
+          </td>
+
+          <td>
+            {{ movimiento.descripcion }}
+          </td>
+
+          <td class="text-end">
+            {{ movimiento.monto | number: '1.2-2' }}
+          </td>
+
+          <td>
+            <div class="d-flex justify-content-end gap-2">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-primary"
+                (click)="onEdit(movimiento.idMovimiento)"
+              >
+                Editar
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger"
+                (click)="onDelete(movimiento.idMovimiento)"
+              >
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

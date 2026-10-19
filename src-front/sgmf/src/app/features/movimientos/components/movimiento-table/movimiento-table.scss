@@ -1,0 +1,15 @@
+:host {
+  display: block;
+}
+
+.table {
+  th {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  td {
+    color: var(--color-text-primary);
+  }
+}

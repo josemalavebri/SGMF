@@ -1,1 +1,50 @@
-<p>movimientos-page works!</p>
+<div class="container py-4">
+  <div
+    class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4"
+  >
+    <div>
+      <h1 class="mb-1">Movimientos</h1>
+
+      <p class="text-secondary mb-0">Consulta y administra tus ingresos y egresos.</p>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="create()">Nuevo movimiento</button>
+  </div>
+
+  @if (store.loading()) {
+    <div class="card">
+      <div class="card-body p-4 text-center">
+        <p class="mb-0">Cargando movimientos...</p>
+      </div>
+    </div>
+
+  } @else if (store.error()) {
+    <div class="alert alert-danger">
+      {{ store.error() }}
+    </div>
+
+  } @else if (store.movimientos().length === 0) {
+    <div class="card">
+      <div class="card-body p-4 text-center">
+        <h2 class="h5">No hay movimientos</h2>
+
+        <p class="text-secondary mb-3">Todavía no has registrado ningún movimiento.</p>
+
+        <button type="button" class="btn btn-primary" (click)="create()">
+          Registrar movimiento
+        </button>
+      </div>
+    </div>
+
+  } @else {
+    <div class="card">
+      <div class="card-body p-0">
+        <app-movimiento-table
+          [movimientos]="store.movimientos()"
+          (edit)="edit($event)"
+          (delete)="delete($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

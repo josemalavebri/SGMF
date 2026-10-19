@@ -1,1 +1,41 @@
-<p>movimiento-create-page works!</p>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-8">
+      <div class="mb-4">
+        <h1 class="mb-1">Nuevo movimiento</h1>
+
+        <p class="text-secondary mb-0">Registra un nuevo ingreso o egreso.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-body p-4">
+          @if (
+            tiposMovimientoState().status === 'loading' ||
+            tiposIngresoState().status === 'loading' ||
+            categoriasEgresoState().status === 'loading'
+          ) {
+            <p>Cargando datos...</p>
+
+          } @else if (
+            tiposMovimientoState().status === 'error' ||
+            tiposIngresoState().status === 'error' ||
+            categoriasEgresoState().status === 'error'
+          ) {
+            <div class="alert alert-danger mb-0">No fue posible cargar los datos necesarios.</div>
+
+          } @else {
+            <app-movimiento-form
+              [form]="form"
+              [tiposMovimiento]="tiposMovimientoState().data ?? []"
+              [tiposIngreso]="tiposIngresoState().data ?? []"
+              [categoriasEgreso]="categoriasEgresoState().data ?? []"
+              [submitted]="saveState().status === 'loading'"
+              (save)="save()"
+              (cancel)="cancel()"
+            />
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

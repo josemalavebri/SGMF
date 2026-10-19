@@ -1,1 +1,147 @@
-<p>movimiento-form works!</p>
+<form [formGroup]="form()" (ngSubmit)="onSubmit()" novalidate>
+  <div class="row g-3">
+    <!-- Tipo de movimiento -->
+
+    <div class="col-12 col-md-6">
+      <label for="tipoMovimiento" class="form-label"> Tipo de movimiento </label>
+
+      <select id="tipoMovimiento" class="form-select" formControlName="idTipoMovimiento">
+        <option [ngValue]="null">Seleccione un tipo</option>
+
+        @for (tipo of tiposMovimiento(); track tipo.idTipoMovimiento) {
+          <option [ngValue]="tipo.idTipoMovimiento">
+            {{ tipo.nombre }}
+          </option>
+        }
+      </select>
+
+      @if (form().controls.idTipoMovimiento.invalid && form().controls.idTipoMovimiento.touched) {
+        <div class="invalid-feedback d-block">Seleccione el tipo de movimiento.</div>
+      }
+    </div>
+
+    <!-- Tipo de ingreso -->
+
+    @if (form().controls.idTipoMovimiento.value === tipoMovimiento.INGRESO) {
+      <div class="col-12 col-md-6">
+        <label for="tipoIngreso" class="form-label"> Tipo de ingreso </label>
+
+        <select id="tipoIngreso" class="form-select" formControlName="idTipoIngreso">
+          <option [ngValue]="null">Seleccione un tipo de ingreso</option>
+
+          @for (tipo of tiposIngreso(); track tipo.idTipoIngreso) {
+            @if (tipo.activo) {
+              <option [ngValue]="tipo.idTipoIngreso">
+                {{ tipo.nombre }}
+              </option>
+            }
+          }
+        </select>
+
+        @if (form().controls.idTipoIngreso.invalid && form().controls.idTipoIngreso.touched) {
+          <div class="invalid-feedback d-block">Seleccione el tipo de ingreso.</div>
+        }
+      </div>
+    }
+
+    <!-- Categoría de egreso -->
+
+    @if (form().controls.idTipoMovimiento.value === tipoMovimiento.EGRESO) {
+      <div class="col-12 col-md-6">
+        <label for="categoriaEgreso" class="form-label"> Categoría de egreso </label>
+
+        <select id="categoriaEgreso" class="form-select" formControlName="idCategoriaEgreso">
+          <option [ngValue]="null">Seleccione una categoría</option>
+
+          @for (categoria of categoriasEgreso(); track categoria.idCategoriaEgreso) {
+            @if (categoria.activo) {
+              <option [ngValue]="categoria.idCategoriaEgreso">
+                {{ categoria.nombre }}
+              </option>
+            }
+          }
+        </select>
+
+        @if (
+          form().controls.idCategoriaEgreso.invalid && form().controls.idCategoriaEgreso.touched
+        ) {
+          <div class="invalid-feedback d-block">Seleccione la categoría de egreso.</div>
+        }
+      </div>
+    }
+
+    <!-- Monto -->
+
+    <div class="col-12 col-md-6">
+      <label for="monto" class="form-label"> Monto </label>
+
+      <input
+        id="monto"
+        type="number"
+        class="form-control"
+        formControlName="monto"
+        min="0.01"
+        step="0.01"
+      />
+
+      @if (form().controls.monto.invalid && form().controls.monto.touched) {
+        <div class="invalid-feedback d-block">
+          @if (form().controls.monto.hasError('required')) {
+            El monto es obligatorio.
+          }
+
+          @if (form().controls.monto.hasError('min')) {
+            El monto debe ser mayor que cero.
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Descripción -->
+
+    <div class="col-12">
+      <label for="descripcion" class="form-label"> Descripción </label>
+
+      <textarea
+        id="descripcion"
+        class="form-control"
+        formControlName="descripcion"
+        rows="4"
+        maxlength="200"
+      ></textarea>
+
+      <div class="form-text text-end">{{ form().controls.descripcion.value.length }}/200</div>
+
+      @if (form().controls.descripcion.invalid && form().controls.descripcion.touched) {
+        <div class="invalid-feedback d-block">
+          @if (form().controls.descripcion.hasError('required')) {
+            La descripción es obligatoria.
+          }
+
+          @if (form().controls.descripcion.hasError('maxlength')) {
+            La descripción no puede superar los 200 caracteres.
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Acciones -->
+
+    <div class="col-12">
+      <div class="d-flex flex-column flex-sm-row justify-content-end gap-2">
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          [disabled]="submitted()"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+
+        <button type="submit" class="btn btn-primary" [disabled]="submitted()">
+          {{ submitted() ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
