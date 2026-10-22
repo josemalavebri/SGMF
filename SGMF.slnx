@@ -1,8 +1,0 @@
-<Solution>
-  <Folder Name="/src-back/">
-    <Project Path="src-back/SGMF.Api/SGMF.Api.csproj" />
-    <Project Path="src-back/SGMF.Application/SGMF.Application.csproj" />
-    <Project Path="src-back/SGMF.Domain/SGMF.Domain.csproj" />
-    <Project Path="src-back/SGMF.Infrastructure/SGMF.Infrastructure.csproj" />
-  </Folder>
-</Solution>

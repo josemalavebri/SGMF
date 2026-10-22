@@ -1,0 +1,134 @@
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\01_CreateDatabase.sql =====
+USE master;
+GO
+
+IF DB_ID('SGMF') IS NULL
+BEGIN
+    CREATE DATABASE SGMF;
+END
+GO
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\02_CreateTables.sql =====
+USE SGMF;
+GO
+
+CREATE TABLE TipoMovimiento (
+    IdTipoMovimiento INT IDENTITY (1, 1) PRIMARY KEY,
+    Nombre VARCHAR (20) NOT NULL UNIQUE
+);
+GO
+
+CREATE TABLE TipoIngreso (
+    IdTipoIngreso INT IDENTITY (1, 1) PRIMARY KEY,
+    Nombre VARCHAR (50) NOT NULL UNIQUE,
+    Activo BIT DEFAULT 1 NOT NULL
+);
+GO
+
+CREATE TABLE CategoriaEgreso (
+    IdCategoriaEgreso INT IDENTITY (1, 1) PRIMARY KEY,
+    Nombre VARCHAR (50) NOT NULL UNIQUE,
+    Activo BIT DEFAULT 1 NOT NULL
+);
+GO
+
+CREATE TABLE Movimiento (
+    IdMovimiento INT IDENTITY (1, 1) PRIMARY KEY,
+    IdTipoMovimiento INT NOT NULL,
+    IdTipoIngreso INT NULL,
+    IdCategoriaEgreso INT NULL,
+    Monto DECIMAL (12, 2) NOT NULL,
+    Descripcion VARCHAR (200) NOT NULL,
+    Fecha DATETIME2 DEFAULT SYSDATETIME() NOT NULL,
+    CONSTRAINT FK_Movimiento_TipoMovimiento
+        FOREIGN KEY (IdTipoMovimiento)
+        REFERENCES TipoMovimiento (IdTipoMovimiento),
+    CONSTRAINT FK_Movimiento_TipoIngreso
+        FOREIGN KEY (IdTipoIngreso)
+        REFERENCES TipoIngreso (IdTipoIngreso),
+    CONSTRAINT FK_Movimiento_CategoriaEgreso
+        FOREIGN KEY (IdCategoriaEgreso)
+        REFERENCES CategoriaEgreso (IdCategoriaEgreso)
+);
+GO
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\03_CreateConstraints.sql =====
+USE SGMF;
+GO
+
+ALTER TABLE Movimiento
+ADD CONSTRAINT CK_Movimiento_Monto
+CHECK (Monto > 0);
+GO
+
+ALTER TABLE Movimiento
+ADD CONSTRAINT CK_Movimiento_Tipo
+CHECK (
+    (
+        IdTipoMovimiento = 1
+        AND IdTipoIngreso IS NOT NULL
+        AND IdCategoriaEgreso IS NULL
+    )
+    OR
+    (
+        IdTipoMovimiento = 2
+        AND IdTipoIngreso IS NULL
+        AND IdCategoriaEgreso IS NOT NULL
+    )
+);
+GO
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\04_CreateIndexes.sql =====
+USE SGMF;
+GO
+
+CREATE INDEX IX_Movimiento_Fecha
+ON Movimiento(Fecha);
+GO
+
+CREATE INDEX IX_Movimiento_TipoMovimiento
+ON Movimiento(IdTipoMovimiento);
+GO
+
+CREATE INDEX IX_Movimiento_TipoIngreso
+ON Movimiento(IdTipoIngreso);
+GO
+
+CREATE INDEX IX_Movimiento_CategoriaEgreso
+ON Movimiento(IdCategoriaEgreso);
+GO
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\05_CreateViews.sql =====
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\Views\vw_Movimientos.sql"
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\06_CreateFunctions.sql =====
+USE SGMF;
+GO
+
+-- No se requieren funciones SQL por ahora.
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\07_CreateStoredProcedures.sql =====
+USE SGMF;
+GO
+
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\TipoMovimiento\usp_TipoMovimiento_GetAll.sql"
+
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\TipoIngreso\usp_TipoIngreso_GetAll.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\TipoIngreso\usp_TipoIngreso_Create.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\TipoIngreso\usp_TipoIngreso_Update.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\TipoIngreso\usp_TipoIngreso_Delete.sql"
+
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\CategoriaEgreso\usp_CategoriaEgreso_GetAll.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\CategoriaEgreso\usp_CategoriaEgreso_Create.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\CategoriaEgreso\usp_CategoriaEgreso_Update.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\CategoriaEgreso\usp_CategoriaEgreso_Delete.sql"
+
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Movimiento\usp_Movimiento_GetAll.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Movimiento\usp_Movimiento_GetById.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Movimiento\usp_Movimiento_Create.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Movimiento\usp_Movimiento_Update.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Movimiento\usp_Movimiento_Delete.sql"
+
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Reportes\usp_Reporte_Balance.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Reportes\usp_Reporte_Ingresos.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Reportes\usp_Reporte_Egresos.sql"
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\StoredProcedures\Reportes\usp_Reporte_MovimientosPorFecha.sql"
+===== C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src-database\Scripts\08_SeedData.sql =====
+USE SGMF;
+GO
+
+:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Data\Seeds\001_InitialData.sql"
