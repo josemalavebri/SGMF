@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { TipoIngreso } from '../../models/tipo-ingreso';
 
 @Component({
-  imports: [],
   selector: 'app-tipo-ingreso-table',
-  styleUrl: './tipo-ingreso-table.scss',
+  imports: [],
   templateUrl: './tipo-ingreso-table.html',
+  styleUrl: './tipo-ingreso-table.scss',
 })
-export class TipoIngresoTable {}
+export class TipoIngresoTable {
+  @Input() tipos: TipoIngreso[] = [];
+
+  @Output() editar = new EventEmitter<TipoIngreso>();
+  @Output() eliminar = new EventEmitter<TipoIngreso>();
+}

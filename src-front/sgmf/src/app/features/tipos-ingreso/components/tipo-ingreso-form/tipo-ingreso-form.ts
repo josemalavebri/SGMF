@@ -1,9 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { TipoIngresoCreate } from '../../models/tipo-ingreso-create';
 
 @Component({
-  imports: [],
   selector: 'app-tipo-ingreso-form',
-  styleUrl: './tipo-ingreso-form.scss',
+  imports: [ReactiveFormsModule],
   templateUrl: './tipo-ingreso-form.html',
+  styleUrl: './tipo-ingreso-form.scss',
 })
-export class TipoIngresoForm {}
+export class TipoIngresoForm {
+  private readonly fb = inject(FormBuilder);
+
+  @Input() set nombreInicial(value: string) {
+    this.form.controls.nombre.setValue(value ?? '');
+  }
+
+  @Input() error = '';
+  @Input() guardando = false;
+
+  @Output() guardar = new EventEmitter<TipoIngresoCreate>();
+  @Output() cancelar = new EventEmitter<void>();
+
+  readonly form = this.fb.nonNullable.group({
+    nombre: ['', [Validators.required, Validators.maxLength(50)]],
+  });
+
+  enviar(): void {
+    if (this.form.invalid || this.guardando) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const nombre = this.form.controls.nombre.value.trim();
+
+    if (!nombre) {
+      this.form.controls.nombre.setErrors({ required: true });
+      this.form.controls.nombre.markAsTouched();
+      return;
+    }
+
+    this.guardar.emit({ nombre });
+  }
+}

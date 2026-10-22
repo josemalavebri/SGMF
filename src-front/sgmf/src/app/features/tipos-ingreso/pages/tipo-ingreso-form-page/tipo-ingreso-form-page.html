@@ -1,1 +1,51 @@
-<p>tipo-ingreso-form-page works!</p>
+<div class="container-fluid py-4">
+  <div class="mb-4">
+    <a routerLink="/tipos-ingreso" class="link-secondary text-decoration-none small">
+      <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
+      Volver al listado
+    </a>
+
+    <h1 class="h3 fw-bold mt-3 mb-1">
+      {{ modoEdicion ? 'Editar tipo de ingreso' : 'Nuevo tipo de ingreso' }}
+    </h1>
+
+    <p class="text-secondary mb-0">
+      {{
+        modoEdicion
+          ? 'Modifica el nombre del tipo de ingreso.'
+          : 'Registra una fuente de ingreso para clasificar tus movimientos.'
+      }}
+    </p>
+  </div>
+
+  @if (cargando) {
+    <div class="text-center py-5" role="status">
+      <span class="spinner-border text-primary" aria-hidden="true"></span>
+      <p class="text-secondary mt-3 mb-0">Cargando tipo de ingreso...</p>
+    </div>
+  } @else if (errorCarga) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorCarga }}
+
+      <div class="mt-2">
+        <a routerLink="/tipos-ingreso" class="alert-link"> Volver al listado </a>
+      </div>
+    </div>
+  } @else {
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white py-3">
+        <h2 class="h6 fw-semibold mb-0">Datos del tipo de ingreso</h2>
+      </div>
+
+      <div class="card-body p-4">
+        <app-tipo-ingreso-form
+          [nombreInicial]="nombreInicial"
+          [error]="error"
+          [guardando]="guardando"
+          (guardar)="guardar($event)"
+          (cancelar)="cancelar()"
+        />
+      </div>
+    </div>
+  }
+</div>

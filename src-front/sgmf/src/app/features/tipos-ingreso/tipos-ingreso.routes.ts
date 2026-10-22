@@ -13,4 +13,11 @@ export const TIPOS_INGRESO_ROUTES: Routes = [
         (m) => m.TipoIngresoFormPage,
       ),
   },
+  {
+    path: 'editar/:id',
+    loadComponent: () =>
+      import('./pages/tipo-ingreso-form-page/tipo-ingreso-form-page').then(
+        (m) => m.TipoIngresoFormPage,
+      ),
+  },
 ];
