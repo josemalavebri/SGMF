@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, CurrencyPipe, DatePipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
+
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
-  imports: [],
   selector: 'app-dashboard-page',
-  styleUrl: './dashboard-page.scss',
+  imports: [AsyncPipe, CurrencyPipe, DatePipe],
   templateUrl: './dashboard-page.html',
+  styleUrl: './dashboard-page.scss',
 })
-export class DashboardPage {}
+export class DashboardPage {
+  private readonly dashboardService = inject(DashboardService);
+
+  readonly resumen$ = this.dashboardService.getResumen();
+}

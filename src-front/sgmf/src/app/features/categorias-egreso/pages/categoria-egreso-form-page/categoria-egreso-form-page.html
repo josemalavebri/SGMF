@@ -1,1 +1,51 @@
-<p>categoria-egreso-form-page works!</p>
+<div class="container-fluid py-4">
+  <div class="mb-4">
+    <a routerLink="/categorias-egreso" class="text-decoration-none small text-secondary">
+      <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
+      Volver a categorías
+    </a>
+
+    <h1 class="h3 fw-bold mt-3 mb-1">
+      {{ modoEdicion ? 'Editar categoría' : 'Nueva categoría' }}
+    </h1>
+
+    <p class="text-secondary mb-0">
+      {{
+        modoEdicion
+          ? 'Actualiza el nombre de la categoría de egreso.'
+          : 'Registra una categoría para organizar tus gastos.'
+      }}
+    </p>
+  </div>
+
+  @if (cargando) {
+    <div class="card border-0 shadow-sm">
+      <div class="card-body text-center py-5">
+        <span class="spinner-border text-primary mb-3" aria-hidden="true"></span>
+        <p class="text-secondary mb-0">Cargando categoría...</p>
+      </div>
+    </div>
+  } @else if (errorCarga) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorCarga }}
+    </div>
+
+    <a routerLink="/categorias-egreso" class="btn btn-outline-secondary"> Volver al listado </a>
+  } @else {
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white py-3">
+        <h2 class="h6 fw-semibold mb-0">Información de la categoría</h2>
+      </div>
+
+      <div class="card-body p-4">
+        <app-categoria-egreso-form
+          [nombreInicial]="nombreInicial"
+          [error]="error"
+          [guardando]="guardando"
+          (guardar)="guardar($event)"
+          (cancelar)="cancelar()"
+        />
+      </div>
+    </div>
+  }
+</div>

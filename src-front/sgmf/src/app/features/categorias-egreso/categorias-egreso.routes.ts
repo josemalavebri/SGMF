@@ -15,4 +15,11 @@ export const CATEGORIAS_EGRESO_ROUTES: Routes = [
         (m) => m.CategoriaEgresoFormPage,
       ),
   },
+  {
+    path: 'editar/:id',
+    loadComponent: () =>
+      import('./pages/categoria-egreso-form-page/categoria-egreso-form-page').then(
+        (m) => m.CategoriaEgresoFormPage,
+      ),
+  },
 ];

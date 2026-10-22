@@ -1,1 +1,61 @@
-<p>categoria-egreso-table works!</p>
+
+<div class="table-responsive">
+  <table class="table table-hover align-middle mb-0">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Estado</th>
+        <th scope="col" class="text-end">Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (categoria of categorias; track categoria.idCategoriaEgreso) {
+        <tr>
+          <td class="fw-medium">{{ categoria.nombre }}</td>
+
+          <td>
+            @if (categoria.activo) {
+              <span class="badge text-bg-success">Activa</span>
+            } @else {
+              <span class="badge text-bg-secondary">Inactiva</span>
+            }
+          </td>
+
+          <td class="text-end">
+            <div class="d-inline-flex gap-2">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm"
+                title="Editar categoría de egreso"
+                [attr.aria-label]="'Editar ' + categoria.nombre"
+                (click)="editar.emit(categoria)"
+              >
+                <i class="bi bi-pencil" aria-hidden="true"></i>
+                <span class="d-none d-md-inline ms-1">Editar</span>
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-outline-danger btn-sm"
+                title="Eliminar categoría de egreso"
+                [attr.aria-label]="'Eliminar ' + categoria.nombre"
+                (click)="eliminar.emit(categoria)"
+              >
+                <i class="bi bi-trash" aria-hidden="true"></i>
+                <span class="d-none d-md-inline ms-1">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="3" class="text-center text-secondary py-5">
+            <i class="bi bi-inbox fs-3 d-block mb-2" aria-hidden="true"></i>
+            No hay categorías de egreso registradas.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

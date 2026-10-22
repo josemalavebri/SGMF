@@ -1,1 +1,38 @@
-<p>categorias-egreso-page works!</p>
+
+<div class="container-fluid py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+      <h1 class="h3 fw-bold mb-1">Categorías de egreso</h1>
+      <p class="text-secondary mb-0">
+        Administra las categorías que utilizas para clasificar tus gastos.
+      </p>
+    </div>
+
+    <a routerLink="/categorias-egreso/crear" class="btn btn-primary">
+      <i class="bi bi-plus-lg me-2" aria-hidden="true"></i>
+      Nueva categoría
+    </a>
+  </div>
+
+  @if (error) {
+    <div class="alert alert-danger" role="alert">
+      {{ error }}
+    </div>
+  }
+
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+      <h2 class="h6 fw-semibold mb-0">Listado de categorías</h2>
+    </div>
+
+    <div class="card-body p-0">
+      @if (categorias$ | async; as categorias) {
+        <app-categoria-egreso-table
+          [categorias]="categorias"
+          (editar)="editar($event)"
+          (eliminar)="eliminar($event)"
+        />
+      }
+    </div>
+  </div>
+</div>
