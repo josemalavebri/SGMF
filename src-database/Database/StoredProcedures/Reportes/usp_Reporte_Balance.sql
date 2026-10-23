@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_Reporte_Balance
+CREATE PROCEDURE usp_Reporte_Balance
 AS
 BEGIN
   SET NOCOUNT ON;
@@ -8,4 +7,3 @@ BEGIN
          ISNULL(SUM(CASE WHEN IdTipoMovimiento = 1 THEN Monto WHEN IdTipoMovimiento = 2 THEN -Monto ELSE 0 END), 0) AS Saldo
   FROM   Movimiento;
 END
-GO

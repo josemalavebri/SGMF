@@ -1,5 +1,5 @@
 
-CREATE OR ALTER PROCEDURE dbo.usp_Movimiento_Update
+CREATE PROCEDURE dbo.usp_Movimiento_Update
     @IdMovimiento INT,
     @IdTipoMovimiento INT,
     @IdTipoIngreso INT = NULL,
@@ -87,4 +87,3 @@ BEGIN
         Descripcion = @Descripcion
     WHERE IdMovimiento = @IdMovimiento;
 END;
-GO

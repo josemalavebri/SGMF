@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_Movimiento_Delete
+CREATE PROCEDURE usp_Movimiento_Delete
 @IdMovimiento INT
 AS
 BEGIN
@@ -7,4 +6,3 @@ BEGIN
   DELETE Movimiento
   WHERE  IdMovimiento = @IdMovimiento;
 END
-GO

@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_TipoIngreso_GetAll
+CREATE PROCEDURE usp_TipoIngreso_GetAll
 AS
 BEGIN
   SET NOCOUNT ON;
@@ -10,4 +9,3 @@ BEGIN
   WHERE    Activo = 1
   ORDER BY Nombre;
 END
-GO

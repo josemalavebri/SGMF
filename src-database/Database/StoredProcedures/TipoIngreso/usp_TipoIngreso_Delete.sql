@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_TipoIngreso_Delete
+CREATE PROCEDURE usp_TipoIngreso_Delete
 @IdTipoIngreso INT
 AS
 BEGIN
@@ -8,4 +7,3 @@ BEGIN
   SET    Activo = 0
   WHERE  IdTipoIngreso = @IdTipoIngreso;
 END
-GO

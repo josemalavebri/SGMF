@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_TipoIngreso_Update
+CREATE PROCEDURE usp_TipoIngreso_Update
 @IdTipoIngreso INT, @Nombre VARCHAR (50)
 AS
 BEGIN
@@ -9,4 +8,3 @@ BEGIN
   WHERE  IdTipoIngreso = @IdTipoIngreso
          AND Activo = 1;
 END
-GO

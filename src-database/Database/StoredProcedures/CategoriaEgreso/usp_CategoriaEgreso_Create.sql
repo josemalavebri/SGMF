@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_CategoriaEgreso_Create
+CREATE PROCEDURE usp_CategoriaEgreso_Create
 @Nombre VARCHAR (50)
 AS
 BEGIN
@@ -10,4 +9,3 @@ BEGIN
   VALUES                      (@Nombre);
   SELECT CAST (SCOPE_IDENTITY() AS INT) AS IdCategoriaEgreso;
 END
-GO

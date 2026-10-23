@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_CategoriaEgreso_Update
+CREATE PROCEDURE usp_CategoriaEgreso_Update
 @IdCategoriaEgreso INT, @Nombre VARCHAR (50)
 AS
 BEGIN
@@ -9,4 +8,3 @@ BEGIN
   WHERE  IdCategoriaEgreso = @IdCategoriaEgreso
          AND Activo = 1;
 END
-GO

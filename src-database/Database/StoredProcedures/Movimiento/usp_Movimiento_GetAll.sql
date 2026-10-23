@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_Movimiento_GetAll
+CREATE PROCEDURE usp_Movimiento_GetAll
 AS
 BEGIN
   SET NOCOUNT ON;
@@ -13,4 +12,3 @@ BEGIN
   FROM     Movimiento
   ORDER BY Fecha DESC, IdMovimiento DESC;
 END
-GO

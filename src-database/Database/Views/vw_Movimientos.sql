@@ -1,5 +1,5 @@
-GO
-CREATE OR ALTER VIEW vw_Movimientos
+
+CREATE VIEW dbo.vw_Movimientos
 AS
 SELECT
     m.IdMovimiento,
@@ -9,11 +9,10 @@ SELECT
     m.Monto,
     m.Descripcion,
     m.Fecha
-FROM Movimiento AS m
-INNER JOIN TipoMovimiento AS tm
+FROM dbo.Movimiento AS m
+INNER JOIN dbo.TipoMovimiento AS tm
     ON m.IdTipoMovimiento = tm.IdTipoMovimiento
-LEFT JOIN TipoIngreso AS ti
+LEFT JOIN dbo.TipoIngreso AS ti
     ON m.IdTipoIngreso = ti.IdTipoIngreso
-LEFT JOIN CategoriaEgreso AS ce
+LEFT JOIN dbo.CategoriaEgreso AS ce
     ON m.IdCategoriaEgreso = ce.IdCategoriaEgreso;
-GO

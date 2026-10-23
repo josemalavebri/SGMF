@@ -1,5 +1,5 @@
 
-CREATE OR ALTER PROCEDURE dbo.usp_Movimiento_Create
+CREATE PROCEDURE dbo.usp_Movimiento_Create
     @IdTipoMovimiento INT,
     @IdTipoIngreso INT = NULL,
     @IdCategoriaEgreso INT = NULL,
@@ -77,4 +77,3 @@ BEGIN
 
     SELECT CAST(SCOPE_IDENTITY() AS INT) AS IdMovimiento;
 END;
-GO

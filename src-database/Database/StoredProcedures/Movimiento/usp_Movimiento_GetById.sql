@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_Movimiento_GetById
+CREATE PROCEDURE usp_Movimiento_GetById
 @IdMovimiento INT
 AS
 BEGIN
@@ -14,4 +13,3 @@ BEGIN
   FROM   Movimiento
   WHERE  IdMovimiento = @IdMovimiento;
 END
-GO

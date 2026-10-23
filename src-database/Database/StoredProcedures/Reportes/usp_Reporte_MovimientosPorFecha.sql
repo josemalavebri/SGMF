@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_Reporte_MovimientosPorFecha
+CREATE PROCEDURE usp_Reporte_MovimientosPorFecha
 @FechaInicio DATETIME2, @FechaFin DATETIME2
 AS
 BEGIN
@@ -25,4 +24,3 @@ BEGIN
            AND m.Fecha < @FechaFin
   ORDER BY m.Fecha DESC, m.IdMovimiento DESC;
 END
-GO

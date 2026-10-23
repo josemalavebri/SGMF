@@ -1,5 +1,4 @@
-GO
-CREATE OR ALTER PROCEDURE usp_CategoriaEgreso_Delete
+CREATE PROCEDURE usp_CategoriaEgreso_Delete
 @IdCategoriaEgreso INT
 AS
 BEGIN
@@ -8,4 +7,3 @@ BEGIN
   SET    Activo = 0
   WHERE  IdCategoriaEgreso = @IdCategoriaEgreso;
 END
-GO
