@@ -1,4 +1,3 @@
-
 CREATE TABLE dbo.Movimiento
 (
     IdMovimiento INT IDENTITY(1, 1) NOT NULL,
@@ -23,5 +22,33 @@ CREATE TABLE dbo.Movimiento
 
     CONSTRAINT FK_Movimiento_CategoriaEgreso
         FOREIGN KEY (IdCategoriaEgreso)
-        REFERENCES dbo.CategoriaEgreso (IdCategoriaEgreso)
+        REFERENCES dbo.CategoriaEgreso (IdCategoriaEgreso),
+
+    CONSTRAINT CK_Movimiento_TipoRelacionado
+        CHECK
+        (
+            (
+                IdTipoMovimiento = 1
+                AND IdTipoIngreso IS NOT NULL
+                AND IdCategoriaEgreso IS NULL
+            )
+            OR
+            (
+                IdTipoMovimiento = 2
+                AND IdTipoIngreso IS NULL
+                AND IdCategoriaEgreso IS NOT NULL
+            )
+        ),
+
+    INDEX IX_Movimiento_Fecha
+        NONCLUSTERED (Fecha),
+
+    INDEX IX_Movimiento_TipoMovimiento
+        NONCLUSTERED (IdTipoMovimiento),
+
+    INDEX IX_Movimiento_TipoIngreso
+        NONCLUSTERED (IdTipoIngreso),
+
+    INDEX IX_Movimiento_CategoriaEgreso
+        NONCLUSTERED (IdCategoriaEgreso)
 );
