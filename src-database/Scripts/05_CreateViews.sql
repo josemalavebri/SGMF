@@ -1,1 +1,0 @@
-:r "C:\Users\josem\Programacion\Proyectos Produccion\SGMF\Project\src\SGMF.Database\Database\Views\vw_Movimientos.sql"

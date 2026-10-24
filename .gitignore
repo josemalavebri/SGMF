@@ -12,6 +12,9 @@ obj/
 out/
 TestResults/
 artifacts/
+*.dacpac
+*.dll
+*.pdb
 
 # ============================================================
 # VISUAL STUDIO
@@ -50,20 +53,21 @@ App_Data/
 *.db
 *.sqlite
 *.sqlite3
-
-*.dll
-*.pdb
 *.cache
 *.coverage
 *.coveragexml
 *.trx
-
 *.dotCover
 *.dotCover.*.xml
-
 *.userprefs
 *.local
 *.lock.json
+
+# ============================================================
+# SQL SERVER DATABASE PROJECT
+# ============================================================
+*.publish.xml
+*.sqlproj.user
 
 # ============================================================
 # PUBLISH / DEPLOY
@@ -79,14 +83,6 @@ App_Data/
 # ============================================================
 *.vspscc
 *.vssscc
-
-# ============================================================
-# TEST RESULTS
-# ============================================================
-TestResults/
-*.Tests.dll
-*.Tests.pdb
-*.Tests.exe
 
 # ============================================================
 # LOGS / TEMPORARY FILES
@@ -117,34 +113,35 @@ appsettings.*.local.json
 # Dependencies
 node_modules/
 
-# Angular build output
+# Angular build output and cache
 dist/
 .angular/
 out-tsc/
 
-# Angular cache
+# General caches
 .cache/
-.ng_build_cache/
 
-# npm
-.npm/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Package manager caches
+# npm / package manager caches
 .npm/
 .yarn/
 .pnpm-store/
 
-# Optional package manager files
+# Optional Yarn files
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Node.js temporary files
+*.pid
+*.seed
+*.pid.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
@@ -170,7 +167,6 @@ coverage/
 # ANGULAR IDE / LOCAL CONFIG
 # ============================================================
 .angular-cli.json
-.angular/cache/
 
 # ============================================================
 # OS FILES
@@ -193,5 +189,4 @@ $RECYCLE.BIN/
 # ============================================================
 # ARCHIVOS GENERADOS / PERSONALES
 # ============================================================
-Tareas.md
 *.rest
