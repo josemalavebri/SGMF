@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_TipoIngreso_GetAll
+CREATE PROCEDURE dbo.usp_TipoIngreso_GetAll
 AS
 BEGIN
   SET NOCOUNT ON;

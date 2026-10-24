@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_Reporte_Balance
+CREATE PROCEDURE dbo.usp_Reporte_Balance
 AS
 BEGIN
   SET NOCOUNT ON;

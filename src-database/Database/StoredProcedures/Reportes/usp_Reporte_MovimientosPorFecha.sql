@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_Reporte_MovimientosPorFecha
+CREATE PROCEDURE dbo.usp_Reporte_MovimientosPorFecha
 @FechaInicio DATETIME2, @FechaFin DATETIME2
 AS
 BEGIN

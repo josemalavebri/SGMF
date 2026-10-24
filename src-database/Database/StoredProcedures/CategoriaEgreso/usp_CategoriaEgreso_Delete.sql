@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_CategoriaEgreso_Delete
+CREATE PROCEDURE dbo.usp_CategoriaEgreso_Delete
 @IdCategoriaEgreso INT
 AS
 BEGIN

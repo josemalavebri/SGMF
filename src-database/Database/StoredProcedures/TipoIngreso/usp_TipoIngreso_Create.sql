@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_TipoIngreso_Create
+CREATE PROCEDURE dbo.usp_TipoIngreso_Create
 @Nombre VARCHAR (50)
 AS
 BEGIN

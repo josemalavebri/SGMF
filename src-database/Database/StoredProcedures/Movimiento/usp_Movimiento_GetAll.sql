@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_Movimiento_GetAll
+CREATE PROCEDURE dbo.usp_Movimiento_GetAll
 AS
 BEGIN
   SET NOCOUNT ON;

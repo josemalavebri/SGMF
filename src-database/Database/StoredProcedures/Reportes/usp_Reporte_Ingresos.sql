@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_Reporte_Ingresos
+CREATE PROCEDURE dbo.usp_Reporte_Ingresos
 AS
 BEGIN
   SET NOCOUNT ON;

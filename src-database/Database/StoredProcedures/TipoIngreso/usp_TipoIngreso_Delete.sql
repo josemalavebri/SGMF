@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_TipoIngreso_Delete
+CREATE PROCEDURE dbo.usp_TipoIngreso_Delete
 @IdTipoIngreso INT
 AS
 BEGIN

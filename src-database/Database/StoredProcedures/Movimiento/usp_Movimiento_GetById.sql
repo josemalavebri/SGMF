@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_Movimiento_GetById
+CREATE PROCEDURE dbo.usp_Movimiento_GetById
 @IdMovimiento INT
 AS
 BEGIN

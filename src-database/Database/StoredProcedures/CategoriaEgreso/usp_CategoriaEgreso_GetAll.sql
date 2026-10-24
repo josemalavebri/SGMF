@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_CategoriaEgreso_GetAll
+CREATE PROCEDURE dbo.usp_CategoriaEgreso_GetAll
 AS
 BEGIN
   SET NOCOUNT ON;

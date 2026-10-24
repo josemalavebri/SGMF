@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_TipoIngreso_Update
+CREATE PROCEDURE dbo.usp_TipoIngreso_Update
 @IdTipoIngreso INT, @Nombre VARCHAR (50)
 AS
 BEGIN

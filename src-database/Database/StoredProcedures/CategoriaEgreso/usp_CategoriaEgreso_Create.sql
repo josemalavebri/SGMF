@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_CategoriaEgreso_Create
+CREATE PROCEDURE dbo.usp_CategoriaEgreso_Create
 @Nombre VARCHAR (50)
 AS
 BEGIN
