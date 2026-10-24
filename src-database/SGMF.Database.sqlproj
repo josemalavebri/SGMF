@@ -5,8 +5,7 @@
   <PropertyGroup>
     <Name>SGMF.Database</Name>
     <ProjectGuid>{9C9D3330-1032-4B14-AF29-FE5270B1E47B}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql170DatabaseSchemaProvider</DSP>
-    <ModelCollation>1033, CI</ModelCollation>
+<DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>    <ModelCollation>1033, CI</ModelCollation>
     <EnableDefaultSqlItems>false</EnableDefaultSqlItems>
   </PropertyGroup>
 

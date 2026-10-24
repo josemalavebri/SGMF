@@ -1,43 +1,73 @@
 
-GO
-DECLARE @Ingreso AS INT;
+SET XACT_ABORT ON;
 
-DECLARE @Egreso AS INT;
+BEGIN TRY
+    BEGIN TRANSACTION;
 
-DECLARE @Salario AS INT;
+    DECLARE @Ingreso INT;
+    DECLARE @Egreso INT;
+    DECLARE @Salario INT;
+    DECLARE @Responsabilidades INT;
+    DECLARE @GastosHormiga INT;
 
-DECLARE @Responsabilidades AS INT;
+    SELECT @Ingreso = IdTipoMovimiento
+    FROM dbo.TipoMovimiento
+    WHERE Nombre = 'Ingreso';
 
-DECLARE @GastosHormiga AS INT;
+    SELECT @Egreso = IdTipoMovimiento
+    FROM dbo.TipoMovimiento
+    WHERE Nombre = 'Egreso';
 
-SELECT @Ingreso = IdTipoMovimiento
-FROM   TipoMovimiento
-WHERE  Nombre = 'Ingreso';
+    SELECT @Salario = IdTipoIngreso
+    FROM dbo.TipoIngreso
+    WHERE Nombre = 'Salario';
 
-SELECT @Egreso = IdTipoMovimiento
-FROM   TipoMovimiento
-WHERE  Nombre = 'Egreso';
+    SELECT @Responsabilidades = IdCategoriaEgreso
+    FROM dbo.CategoriaEgreso
+    WHERE Nombre = 'Responsabilidades';
 
-SELECT @Salario = IdTipoIngreso
-FROM   TipoIngreso
-WHERE  Nombre = 'Salario';
+    SELECT @GastosHormiga = IdCategoriaEgreso
+    FROM dbo.CategoriaEgreso
+    WHERE Nombre = 'Gastos hormiga';
 
-SELECT @Responsabilidades = IdCategoriaEgreso
-FROM   CategoriaEgreso
-WHERE  Nombre = 'Responsabilidades';
+    IF @Ingreso IS NULL
+       OR @Egreso IS NULL
+       OR @Salario IS NULL
+       OR @Responsabilidades IS NULL
+       OR @GastosHormiga IS NULL
+    BEGIN
+        ;THROW 50010, 'Faltan datos iniciales necesarios para las pruebas.', 1;
+    END;
 
-SELECT @GastosHormiga = IdCategoriaEgreso
-FROM   CategoriaEgreso
-WHERE  Nombre = 'Gastos hormiga';
+    INSERT INTO dbo.Movimiento
+    (
+        IdTipoMovimiento,
+        IdTipoIngreso,
+        IdCategoriaEgreso,
+        Monto,
+        Descripcion
+    )
+    VALUES
+        (@Ingreso, @Salario, NULL, 800.00, 'Salario mensual'),
+        (@Egreso, NULL, @Responsabilidades, 50.00, 'Pago de internet'),
+        (@Egreso, NULL, @GastosHormiga, 2.50, 'Refresco');
 
-INSERT  INTO Movimiento (
-  IdTipoMovimiento,
-  IdTipoIngreso,
-  IdCategoriaEgreso,
-  Monto,
-  Descripcion
-)
-VALUES                 (@Ingreso, @Salario, NULL, 800.00, 'Salario mensual'),
-(@Egreso, NULL, @Responsabilidades, 50.00, 'Pago de internet'),
-(@Egreso, NULL, @GastosHormiga, 2.50, 'Refresco');
-GO
+    -- Comprobación temporal de los registros insertados.
+    SELECT *
+    FROM dbo.Movimiento
+    WHERE Descripcion IN
+    (
+        'Salario mensual',
+        'Pago de internet',
+        'Refresco'
+    );
+
+    -- Las pruebas no dejarán datos persistentes.
+    ROLLBACK TRANSACTION;
+END TRY
+BEGIN CATCH
+    IF XACT_STATE() <> 0
+        ROLLBACK TRANSACTION;
+
+    THROW;
+END CATCH;

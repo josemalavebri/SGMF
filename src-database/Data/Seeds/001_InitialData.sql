@@ -1,4 +1,4 @@
-
+﻿
 -- Tipos de movimiento
 IF EXISTS
 (
