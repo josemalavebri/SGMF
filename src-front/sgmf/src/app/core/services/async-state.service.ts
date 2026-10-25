@@ -1,12 +1,15 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, inject, signal, WritableSignal } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AsyncState } from '../models/async-state.model';
+import { HttpErrorService } from './http-error.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AsyncStateService {
+  private readonly httpErrorService = inject(HttpErrorService);
+
   create<T>(): WritableSignal<AsyncState<T>> {
     return signal<AsyncState<T>>({
       status: 'idle',
@@ -37,12 +40,11 @@ export class AsyncStateService {
         onSuccess?.(data);
       },
 
-      error: (error) => {
+      error: (error: unknown) => {
         state.set({
           status: 'error',
           data: null,
-          error:
-            error instanceof Error ? error.message : 'Ocurrió un error al procesar la solicitud.',
+          error: this.httpErrorService.getMessage(error),
         });
       },
     });

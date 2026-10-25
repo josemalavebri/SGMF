@@ -26,7 +26,7 @@ export class MovimientosPage implements OnInit {
   }
 
   edit(id: number): void {
-    this.router.navigate(['/movimientos', id, 'editar']);
+    this.router.navigate(['/movimientos/editar', id]);
   }
 
   delete(id: number): void {
