@@ -9,21 +9,30 @@
 
       <div class="card">
         <div class="card-body p-4">
-          @if (
-            tiposMovimientoState().status === 'loading' ||
-            tiposIngresoState().status === 'loading' ||
-            categoriasEgresoState().status === 'loading'
-          ) {
-            <p>Cargando datos...</p>
+          @if (hasCatalogError()) {
+            <div class="alert alert-danger mb-0" role="alert">
+              <p class="mb-3">
+                No pudimos cargar los datos necesarios para crear el movimiento. Inténtalo
+                nuevamente.
+              </p>
 
-          } @else if (
-            tiposMovimientoState().status === 'error' ||
-            tiposIngresoState().status === 'error' ||
-            categoriasEgresoState().status === 'error'
-          ) {
-            <div class="alert alert-danger mb-0">No fue posible cargar los datos necesarios.</div>
-
+              <button type="button" class="btn btn-outline-danger" (click)="retryCatalogs()">
+                Reintentar
+              </button>
+            </div>
+          } @else if (isLoadingCatalogs()) {
+            <app-loading-page message="Cargando los datos necesarios..." />
           } @else {
+            @if (saveState().status === 'loading') {
+              <app-loading-operation message="Guardando movimiento..." />
+            }
+
+            @if (saveState().status === 'error') {
+              <div class="alert alert-danger" role="alert">
+                No pudimos guardar el movimiento. Comprueba los datos e inténtalo nuevamente.
+              </div>
+            }
+
             <app-movimiento-form
               [form]="form"
               [tiposMovimiento]="tiposMovimientoState().data ?? []"

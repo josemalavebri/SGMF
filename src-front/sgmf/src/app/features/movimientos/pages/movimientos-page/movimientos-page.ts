@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 
 import { MovimientoStoreService } from '../../services/movimiento-store.service';
 import { MovimientoTableComponent } from '../../components/movimiento-table/movimiento-table';
+import { LoadingData } from '../../../../shared/components/loading-data/loading-data';
 
 @Component({
   selector: 'app-movimientos-page',
-  standalone: true,
-  imports: [MovimientoTableComponent],
+  imports: [MovimientoTableComponent, LoadingData],
   templateUrl: './movimientos-page.html',
   styleUrl: './movimientos-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

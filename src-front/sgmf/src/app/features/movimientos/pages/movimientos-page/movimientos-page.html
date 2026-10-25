@@ -12,17 +12,11 @@
   </div>
 
   @if (store.loading()) {
-    <div class="card">
-      <div class="card-body p-4 text-center">
-        <p class="mb-0">Cargando movimientos...</p>
-      </div>
-    </div>
-
+    <app-loading-data message="Cargando movimientos..." />
   } @else if (store.error()) {
     <div class="alert alert-danger">
       {{ store.error() }}
     </div>
-
   } @else if (store.movimientos().length === 0) {
     <div class="card">
       <div class="card-body p-4 text-center">
@@ -35,7 +29,6 @@
         </button>
       </div>
     </div>
-
   } @else {
     <div class="card">
       <div class="card-body p-0">
