@@ -1,9 +1,9 @@
+```html
 <div class="container py-4">
   <div class="row justify-content-center">
     <div class="col-12 col-xl-8">
       <div class="mb-4">
         <h1 class="mb-1">Nuevo movimiento</h1>
-
         <p class="text-secondary mb-0">Registra un nuevo ingreso o egreso.</p>
       </div>
 
@@ -23,13 +23,13 @@
           } @else if (isLoadingCatalogs()) {
             <app-loading-page message="Cargando los datos necesarios..." />
           } @else {
-            @if (saveState().status === 'loading') {
+            @if (store.saving()) {
               <app-loading-operation message="Guardando movimiento..." />
             }
 
-            @if (saveState().status === 'error') {
+            @if (store.saveError()) {
               <div class="alert alert-danger" role="alert">
-                No pudimos guardar el movimiento. Comprueba los datos e inténtalo nuevamente.
+                {{ store.saveError() }}
               </div>
             }
 
@@ -38,7 +38,7 @@
               [tiposMovimiento]="tiposMovimientoState().data ?? []"
               [tiposIngreso]="tiposIngresoState().data ?? []"
               [categoriasEgreso]="categoriasEgresoState().data ?? []"
-              [submitted]="saveState().status === 'loading'"
+              [submitted]="store.saving()"
               (save)="save()"
               (cancel)="cancel()"
             />
@@ -48,3 +48,4 @@
     </div>
   </div>
 </div>
+```

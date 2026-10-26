@@ -1,1 +1,55 @@
-<p>movimiento-edit-page works!</p>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-8">
+      <div class="mb-4">
+        <h1 class="mb-1">Editar movimiento</h1>
+        <p class="text-secondary mb-0">Modifica los datos del movimiento seleccionado.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-body p-4">
+          @if (store.loadingSelected()) {
+            <app-loading-page message="Cargando movimiento..." />
+          } @else if (store.selectedError()) {
+            <app-error-state
+              title="No se pudo cargar el movimiento"
+              [message]="store.selectedError()!"
+              actionLabel="Volver a movimientos"
+              (action)="cancel()"
+            />
+          } @else if (hasCatalogError()) {
+            <div class="alert alert-danger" role="alert">
+              No pudimos cargar los catálogos necesarios para editar el movimiento.
+
+              <button type="button" class="btn btn-outline-danger mt-3" (click)="retryCatalogs()">
+                Reintentar
+              </button>
+            </div>
+          } @else if (isLoadingCatalogs()) {
+            <app-loading-page message="Cargando los datos necesarios..." />
+          } @else if (store.selectedMovimiento()) {
+            @if (store.saving()) {
+              <app-loading-operation message="Guardando cambios..." />
+            }
+
+            @if (store.saveError()) {
+              <div class="alert alert-danger" role="alert">
+                {{ store.saveError() }}
+              </div>
+            }
+
+            <app-movimiento-form
+              [form]="form"
+              [tiposMovimiento]="tiposMovimientoState().data ?? []"
+              [tiposIngreso]="tiposIngresoState().data ?? []"
+              [categoriasEgreso]="categoriasEgresoState().data ?? []"
+              [submitted]="store.saving()"
+              (save)="save()"
+              (cancel)="cancel()"
+            />
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

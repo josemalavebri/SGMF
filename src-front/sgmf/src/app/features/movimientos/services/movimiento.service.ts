@@ -24,11 +24,11 @@ export class MovimientoService {
   }
 
   create(data: MovimientoCreate): Observable<unknown> {
-    return this.http.post(this.endpoint, data);
+    return this.http.post<unknown>(this.endpoint, data);
   }
 
   update(id: number, data: MovimientoUpdate): Observable<unknown> {
-    return this.http.put(`${this.endpoint}/${id}`, data);
+    return this.http.put<unknown>(`${this.endpoint}/${id}`, data);
   }
 
   delete(id: number): Observable<void> {

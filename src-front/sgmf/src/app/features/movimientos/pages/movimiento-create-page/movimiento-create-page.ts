@@ -12,7 +12,7 @@ import { MovimientoCreate } from '../../models/movimiento-create';
 import { TipoMovimiento } from '../../models/TipoMovimiento';
 
 import { MovimientoFormService } from '../../services/movimiento-form.service';
-import { MovimientoService } from '../../services/movimiento.service';
+import { MovimientoStoreService } from '../../services/movimiento-store.service';
 import { TipoMovimientoService } from '../../services/tipo-movimiento.service';
 
 import { TipoIngresoService } from '../../../tipos-ingreso/services/tipo-ingreso.service';
@@ -34,7 +34,8 @@ export class MovimientoCreatePage implements OnInit {
   private readonly asyncState = inject(AsyncStateService);
   private readonly alertService = inject(AlertService);
   private readonly formService = inject(MovimientoFormService);
-  private readonly movimientoService = inject(MovimientoService);
+  readonly store = inject(MovimientoStoreService);
+
   private readonly tipoMovimientoService = inject(TipoMovimientoService);
   private readonly tipoIngresoService = inject(TipoIngresoService);
   private readonly categoriaEgresoService = inject(CategoriaEgresoService);
@@ -42,12 +43,8 @@ export class MovimientoCreatePage implements OnInit {
   readonly form = this.formService.createForm();
 
   readonly tiposMovimientoState = this.asyncState.create<TipoMovimiento[]>();
-
   readonly tiposIngresoState = this.asyncState.create<TipoIngreso[]>();
-
   readonly categoriasEgresoState = this.asyncState.create<CategoriaEgreso[]>();
-
-  readonly saveState = this.asyncState.create<unknown>();
 
   readonly isLoadingCatalogs = computed(
     () =>
@@ -79,8 +76,8 @@ export class MovimientoCreatePage implements OnInit {
     this.loadCatalogs();
   }
 
-  save(): void {
-    if (this.form.invalid || this.saveState().status === 'loading') {
+  async save(): Promise<void> {
+    if (this.form.invalid || this.store.saving()) {
       this.form.markAllAsTouched();
       return;
     }
@@ -95,15 +92,22 @@ export class MovimientoCreatePage implements OnInit {
       descripcion: value.descripcion.trim(),
     };
 
-    this.asyncState.execute(this.saveState, this.movimientoService.create(request), () => {
-      void this.alertService
-        .success('Movimiento creado', 'El movimiento se registró correctamente.')
-        .then(() => this.router.navigate(['/movimientos']));
-    });
+    try {
+      await this.store.create(request);
+
+      await this.alertService.success(
+        'Movimiento creado',
+        'El movimiento se registró correctamente.',
+      );
+
+      await this.router.navigate(['/movimientos']);
+    } catch {
+      // El Store conserva el error en saveError para mostrarlo en la vista.
+    }
   }
 
   cancel(): void {
-    if (this.saveState().status === 'loading') {
+    if (this.store.saving()) {
       return;
     }
 

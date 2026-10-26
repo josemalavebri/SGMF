@@ -1,1 +1,1 @@
-SELECT * FROM TipoIngreso
+SELECT * FROM Movimiento

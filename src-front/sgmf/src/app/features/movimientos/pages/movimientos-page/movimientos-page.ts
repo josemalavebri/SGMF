@@ -57,12 +57,9 @@ export class MovimientosPage implements OnInit {
         'El movimiento se eliminó correctamente.',
       );
     } catch (error: unknown) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'No se pudo eliminar el movimiento. Inténtalo nuevamente.';
+      const message = error instanceof Error ? error.message : 'No se pudo eliminar el movimiento.';
 
-      await this.alertService.error('No se pudo eliminar el movimiento', message);
+      await this.alertService.error('Error al eliminar', message);
     }
   }
 
