@@ -1,3 +1,4 @@
+using SGMF.Api.Extensions;
 using SGMF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+builder.Services.AddApiServices();
 
 var app = builder.Build();
 
