@@ -2,21 +2,24 @@ import { ChangeDetectionStrategy, Component, OnInit, computed, inject } from '@a
 import { Router } from '@angular/router';
 
 import { AsyncStateService } from '../../../../core/services/async-state.service';
+import { AlertService } from '../../../../core/services/alert.service';
 
 import { LoadingPage } from '../../../../shared/components/loading-page/loading-page';
 import { LoadingOperation } from '../../../../shared/components/loading-operation/loading-operation';
+
 import { MovimientoFormComponent } from '../../components/movimiento-form/movimiento-form';
 import { MovimientoCreate } from '../../models/movimiento-create';
 import { TipoMovimiento } from '../../models/TipoMovimiento';
+
 import { MovimientoFormService } from '../../services/movimiento-form.service';
 import { MovimientoService } from '../../services/movimiento.service';
 import { TipoMovimientoService } from '../../services/tipo-movimiento.service';
+
 import { TipoIngresoService } from '../../../tipos-ingreso/services/tipo-ingreso.service';
 import { CategoriaEgresoService } from '../../../categorias-egreso/services/categoria-egreso.service';
+
 import { TipoIngreso } from '../../../tipos-ingreso/models/tipo-ingreso';
 import { CategoriaEgreso } from '../../../categorias-egreso/models/categoria-egreso';
-
-
 
 @Component({
   selector: 'app-movimiento-create-page',
@@ -29,6 +32,7 @@ import { CategoriaEgreso } from '../../../categorias-egreso/models/categoria-egr
 export class MovimientoCreatePage implements OnInit {
   private readonly router = inject(Router);
   private readonly asyncState = inject(AsyncStateService);
+  private readonly alertService = inject(AlertService);
   private readonly formService = inject(MovimientoFormService);
   private readonly movimientoService = inject(MovimientoService);
   private readonly tipoMovimientoService = inject(TipoMovimientoService);
@@ -92,7 +96,9 @@ export class MovimientoCreatePage implements OnInit {
     };
 
     this.asyncState.execute(this.saveState, this.movimientoService.create(request), () => {
-      void this.router.navigate(['/movimientos']);
+      void this.alertService
+        .success('Movimiento creado', 'El movimiento se registró correctamente.')
+        .then(() => this.router.navigate(['/movimientos']));
     });
   }
 

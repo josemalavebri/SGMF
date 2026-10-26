@@ -1,9 +1,22 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 
 @Component({
-  imports: [],
   selector: 'app-empty-state',
-  styleUrl: './empty-state.scss',
+  standalone: true,
   templateUrl: './empty-state.html',
+  styleUrl: './empty-state.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EmptyState {}
+export class EmptyState {
+  readonly title = input('No hay datos disponibles');
+  readonly message = input('Todavía no hay información para mostrar.');
+
+  readonly actionLabel = input<string | null>(null);
+
+  readonly action = output<void>();
+}

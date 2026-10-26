@@ -1,1 +1,17 @@
-<p>empty-state works!</p>
+<div class="empty-state">
+  <h2 class="h5 mb-2">{{ title() }}</h2>
+
+  <p class="text-secondary mb-0">
+    {{ message() }}
+  </p>
+
+  @if (actionLabel()) {
+    <button
+      type="button"
+      class="btn btn-primary mt-3"
+      (click)="action.emit()"
+    >
+      {{ actionLabel() }}
+    </button>
+  }
+</div>

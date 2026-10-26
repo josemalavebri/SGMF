@@ -1,1 +1,35 @@
-<p>confirm-dialog works!</p>
+<div
+  class="confirm-dialog"
+  role="alertdialog"
+  aria-modal="true"
+  aria-labelledby="confirm-dialog-title"
+  aria-describedby="confirm-dialog-message"
+>
+  <h2 id="confirm-dialog-title" class="h5 mb-3">
+    {{ title() }}
+  </h2>
+
+  <p id="confirm-dialog-message" class="mb-4">
+    {{ message() }}
+  </p>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      [disabled]="loading()"
+      (click)="onCancel()"
+    >
+      {{ cancelText() }}
+    </button>
+
+    <button type="button" class="btn btn-danger" [disabled]="loading()" (click)="onConfirm()">
+      @if (loading()) {
+        <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+        Procesando...
+      } @else {
+        {{ confirmText() }}
+      }
+    </button>
+  </div>
+</div>

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -7,30 +7,66 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class HttpErrorService {
   getMessage(error: unknown): string {
     if (!(error instanceof HttpErrorResponse)) {
-      return 'Ocurrió un error inesperado.';
+      return 'Ocurrió un error inesperado. Inténtalo nuevamente.';
     }
 
-    const detail = error.error?.detail;
-    const message = error.error?.message;
-    const title = error.error?.title;
-
-    if (typeof detail === 'string' && detail.trim()) return detail;
-    if (typeof message === 'string' && message.trim()) return message;
-    if (typeof title === 'string' && title.trim()) return title;
+    if (error.status === 0) {
+      return 'No se pudo conectar con el servidor. Comprueba tu conexión e inténtalo nuevamente.';
+    }
 
     switch (error.status) {
       case 400:
-        return 'La solicitud no es válida.';
+        return (
+          this.getClientErrorMessage(error) ??
+          'No se pudo procesar la solicitud. Revisa los datos e inténtalo nuevamente.'
+        );
+
+      case 401:
+        return 'No tienes autorización para realizar esta operación.';
+
+      case 403:
+        return 'No tienes permiso para realizar esta operación.';
+
       case 404:
-        return 'El recurso solicitado no fue encontrado.';
+        return 'No se encontró la información solicitada.';
+
       case 409:
-        return 'La operación entra en conflicto con los datos existentes.';
-      case 0:
-        return 'No fue posible conectarse con el servidor.';
+        return (
+          this.getClientErrorMessage(error) ??
+          'La operación entra en conflicto con los datos existentes.'
+        );
+
+      case 422:
+        return 'Los datos enviados no cumplen los requisitos necesarios.';
+
       case 500:
-        return 'Ocurrió un error interno en el servidor.';
+      case 502:
+      case 503:
+      case 504:
+        return 'El servidor no pudo completar la solicitud. Inténtalo más tarde.';
+
       default:
-        return 'Ocurrió un error al procesar la solicitud.';
+        return 'Ocurrió un error al procesar la solicitud. Inténtalo nuevamente.';
     }
+  }
+
+  private getClientErrorMessage(error: HttpErrorResponse): string | null {
+    const body: unknown = error.error;
+
+    if (typeof body !== 'object' || body === null) {
+      return null;
+    }
+
+    const response = body as Record<string, unknown>;
+
+    for (const key of ['detail', 'message', 'title']) {
+      const value = response[key];
+
+      if (typeof value === 'string' && value.trim().length > 0) {
+        return value;
+      }
+    }
+
+    return null;
   }
 }
