@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  OnDestroy,
+  OnInit,
+  computed,
+  inject,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
 import { AsyncStateService } from '../../../../core/services/async-state.service';
@@ -6,12 +15,16 @@ import { AlertService } from '../../../../core/services/alert.service';
 
 import { LoadingPage } from '../../../../shared/components/loading-page/loading-page';
 import { LoadingOperation } from '../../../../shared/components/loading-operation/loading-operation';
+import { ErrorState } from '../../../../shared/components/error-state/error-state';
 
 import { MovimientoFormComponent } from '../../components/movimiento-form/movimiento-form';
 import { MovimientoCreate } from '../../models/movimiento-create';
 import { TipoMovimiento } from '../../models/TipoMovimiento';
 
-import { MovimientoFormService } from '../../services/movimiento-form.service';
+import {
+  MovimientoFormService,
+  MovimientoFormSubmit,
+} from '../../services/movimiento-form.service';
 import { MovimientoStoreService } from '../../services/movimiento-store.service';
 import { TipoMovimientoService } from '../../services/tipo-movimiento.service';
 
@@ -24,22 +37,22 @@ import { CategoriaEgreso } from '../../../categorias-egreso/models/categoria-egr
 @Component({
   selector: 'app-movimiento-create-page',
   standalone: true,
-  imports: [MovimientoFormComponent, LoadingPage, LoadingOperation],
+  imports: [MovimientoFormComponent, LoadingPage, LoadingOperation, ErrorState],
   templateUrl: './movimiento-create-page.html',
   styleUrl: './movimiento-create-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovimientoCreatePage implements OnInit {
+export class MovimientoCreatePage implements OnInit, OnDestroy {
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly asyncState = inject(AsyncStateService);
   private readonly alertService = inject(AlertService);
   private readonly formService = inject(MovimientoFormService);
-  readonly store = inject(MovimientoStoreService);
-
   private readonly tipoMovimientoService = inject(TipoMovimientoService);
   private readonly tipoIngresoService = inject(TipoIngresoService);
   private readonly categoriaEgresoService = inject(CategoriaEgresoService);
 
+  readonly store = inject(MovimientoStoreService);
   readonly form = this.formService.createForm();
 
   readonly tiposMovimientoState = this.asyncState.create<TipoMovimiento[]>();
@@ -61,14 +74,24 @@ export class MovimientoCreatePage implements OnInit {
   );
 
   ngOnInit(): void {
+    this.store.clearSaveError();
+
+    this.form.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      if (this.store.saveError()) {
+        this.store.clearSaveError();
+      }
+    });
+
     this.loadCatalogs();
+  }
+
+  ngOnDestroy(): void {
+    this.store.clearSaveError();
   }
 
   private loadCatalogs(): void {
     this.asyncState.execute(this.tiposMovimientoState, this.tipoMovimientoService.getAll());
-
     this.asyncState.execute(this.tiposIngresoState, this.tipoIngresoService.getAll());
-
     this.asyncState.execute(this.categoriasEgresoState, this.categoriaEgresoService.getAll());
   }
 
@@ -76,19 +99,16 @@ export class MovimientoCreatePage implements OnInit {
     this.loadCatalogs();
   }
 
-  async save(): Promise<void> {
-    if (this.form.invalid || this.store.saving()) {
-      this.form.markAllAsTouched();
+  async save(value: MovimientoFormSubmit): Promise<void> {
+    if (this.store.saving()) {
       return;
     }
 
-    const value = this.form.getRawValue();
-
     const request: MovimientoCreate = {
-      idTipoMovimiento: value.idTipoMovimiento!,
+      idTipoMovimiento: value.idTipoMovimiento,
       idTipoIngreso: value.idTipoIngreso,
       idCategoriaEgreso: value.idCategoriaEgreso,
-      monto: value.monto!,
+      monto: value.monto,
       descripcion: value.descripcion.trim(),
     };
 
@@ -102,7 +122,7 @@ export class MovimientoCreatePage implements OnInit {
 
       await this.router.navigate(['/movimientos']);
     } catch {
-      // El Store conserva el error en saveError para mostrarlo en la vista.
+      // El Store conserva el mensaje local en saveError.
     }
   }
 

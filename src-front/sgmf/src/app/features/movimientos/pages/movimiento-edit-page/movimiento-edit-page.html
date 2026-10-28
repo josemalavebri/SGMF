@@ -44,7 +44,7 @@
               [tiposIngreso]="tiposIngresoState().data ?? []"
               [categoriasEgreso]="categoriasEgresoState().data ?? []"
               [submitted]="store.saving()"
-              (save)="save()"
+              (save)="save($event)"
               (cancel)="cancel()"
             />
           }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MovimientoForm } from '../../services/movimiento-form.service';
+import { MovimientoForm, MovimientoFormSubmit } from '../../services/movimiento-form.service';
 
 import { TipoMovimiento } from '../../models/TipoMovimiento';
 import { TipoIngreso } from '../../../tipos-ingreso/models/tipo-ingreso';
@@ -28,20 +28,30 @@ export class MovimientoFormComponent {
 
   readonly submitted = input(false);
 
-  readonly save = output<void>();
+  readonly save = output<MovimientoFormSubmit>();
 
   readonly cancel = output<void>();
 
   readonly tipoMovimiento = TIPO_MOVIMIENTO;
 
   onSubmit(): void {
-    this.form().markAllAsTouched();
+    const form = this.form();
 
-    if (this.form().invalid || this.submitted()) {
+    form.markAllAsTouched();
+
+    if (form.invalid || this.submitted()) {
       return;
     }
 
-    this.save.emit();
+    const value = form.getRawValue();
+
+    this.save.emit({
+      idTipoMovimiento: value.idTipoMovimiento!,
+      idTipoIngreso: value.idTipoIngreso,
+      idCategoriaEgreso: value.idCategoriaEgreso,
+      monto: value.monto!,
+      descripcion: value.descripcion,
+    });
   }
 
   onCancel(): void {

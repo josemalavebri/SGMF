@@ -8,7 +8,10 @@ import { LoadingOperation } from '../../../../shared/components/loading-operatio
 import { ErrorState } from '../../../../shared/components/error-state/error-state';
 
 import { MovimientoFormComponent } from '../../components/movimiento-form/movimiento-form';
-import { MovimientoFormService } from '../../services/movimiento-form.service';
+import {
+  MovimientoFormService,
+  MovimientoFormSubmit,
+} from '../../services/movimiento-form.service';
 import { MovimientoStoreService } from '../../services/movimiento-store.service';
 
 import { TipoMovimientoService } from '../../services/tipo-movimiento.service';
@@ -80,9 +83,7 @@ export class MovimientoEditPage implements OnInit {
 
   private loadCatalogs(): void {
     this.asyncState.execute(this.tiposMovimientoState, this.tipoMovimientoService.getAll());
-
     this.asyncState.execute(this.tiposIngresoState, this.tipoIngresoService.getAll());
-
     this.asyncState.execute(this.categoriasEgresoState, this.categoriaEgresoService.getAll());
   }
 
@@ -104,9 +105,8 @@ export class MovimientoEditPage implements OnInit {
     }
   }
 
-  async save(): Promise<void> {
-    if (this.form.invalid || this.store.saving() || this.store.loadingSelected()) {
-      this.form.markAllAsTouched();
+  async save(value: MovimientoFormSubmit): Promise<void> {
+    if (this.store.saving() || this.store.loadingSelected()) {
       return;
     }
 
@@ -116,13 +116,11 @@ export class MovimientoEditPage implements OnInit {
       return;
     }
 
-    const value = this.form.getRawValue();
-
     const request: MovimientoUpdate = {
-      idTipoMovimiento: value.idTipoMovimiento!,
+      idTipoMovimiento: value.idTipoMovimiento,
       idTipoIngreso: value.idTipoIngreso,
       idCategoriaEgreso: value.idCategoriaEgreso,
-      monto: value.monto!,
+      monto: value.monto,
       descripcion: value.descripcion.trim(),
     };
 

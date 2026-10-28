@@ -4,6 +4,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TIPO_MOVIMIENTO } from '../../../core/constants/tipo-movimiento.constants';
 import { Movimiento } from '../models/movimiento';
 
+export interface MovimientoFormSubmit {
+  idTipoMovimiento: number;
+  idTipoIngreso: number | null;
+  idCategoriaEgreso: number | null;
+  monto: number;
+  descripcion: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })

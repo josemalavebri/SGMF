@@ -89,7 +89,7 @@ Content-Type: application/json
     "idTipoMovimiento": 1,
     "idTipoIngreso": 1,
     "idCategoriaEgreso": null,
-    "monto": 1500.00,
+    "monto": n,
     "descripcion": "Salario mensual"
 }
 

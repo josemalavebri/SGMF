@@ -19,6 +19,7 @@ public class MovimientoController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
+
         var movimientos = await _service.GetAllAsync();
 
         return Ok(movimientos);
@@ -27,6 +28,7 @@ public class MovimientoController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
+
         var movimiento =
             await _service.GetByIdAsync(id);
 

@@ -75,11 +75,8 @@ export class MovimientoStoreService {
 
       return movimiento;
     } catch (error: unknown) {
-      const message = this.httpErrorService.getMessage(error);
-
-      this._selectedError.set(message);
-
-      throw new Error(message);
+      this._selectedError.set(this.httpErrorService.getMessage(error));
+      throw error;
     } finally {
       this._loadingSelected.set(false);
     }
@@ -87,7 +84,7 @@ export class MovimientoStoreService {
 
   async create(data: MovimientoCreate): Promise<void> {
     if (this._saving()) {
-      throw new Error('Ya hay una operación de guardado en curso.');
+      return;
     }
 
     this._saving.set(true);
@@ -96,11 +93,8 @@ export class MovimientoStoreService {
     try {
       await firstValueFrom(this.movimientoService.create(data));
     } catch (error: unknown) {
-      const message = this.httpErrorService.getMessage(error);
-
-      this._saveError.set(message);
-
-      throw new Error(message);
+      this._saveError.set(this.httpErrorService.getMessage(error));
+      throw error;
     } finally {
       this._saving.set(false);
     }
@@ -108,7 +102,7 @@ export class MovimientoStoreService {
 
   async update(id: number, data: MovimientoUpdate): Promise<void> {
     if (this._saving()) {
-      throw new Error('Ya hay una operación de guardado en curso.');
+      return;
     }
 
     this._saving.set(true);
@@ -122,10 +116,7 @@ export class MovimientoStoreService {
           return movimiento;
         }
 
-        return {
-          ...movimiento,
-          ...data,
-        };
+        return { ...movimiento, ...data };
       });
 
       this._movimientos.update((movimientos) =>
@@ -134,11 +125,8 @@ export class MovimientoStoreService {
         ),
       );
     } catch (error: unknown) {
-      const message = this.httpErrorService.getMessage(error);
-
-      this._saveError.set(message);
-
-      throw new Error(message);
+      this._saveError.set(this.httpErrorService.getMessage(error));
+      throw error;
     } finally {
       this._saving.set(false);
     }
@@ -146,7 +134,7 @@ export class MovimientoStoreService {
 
   async delete(id: number): Promise<void> {
     if (this._deleting()) {
-      throw new Error('Ya hay una eliminación en curso.');
+      return;
     }
 
     this._deleting.set(true);
@@ -163,14 +151,19 @@ export class MovimientoStoreService {
         this._selectedMovimiento.set(null);
       }
     } catch (error: unknown) {
-      const message = this.httpErrorService.getMessage(error);
-
-      this._deleteError.set(message);
-
-      throw new Error(message);
+      this._deleteError.set(this.httpErrorService.getMessage(error));
+      throw error;
     } finally {
       this._deleting.set(false);
     }
+  }
+
+  clearLoadError(): void {
+    this._error.set(null);
+  }
+
+  clearSelectedError(): void {
+    this._selectedError.set(null);
   }
 
   clearSaveError(): void {
@@ -184,7 +177,6 @@ export class MovimientoStoreService {
   clearSelected(): void {
     this._selectedMovimiento.set(null);
     this._selectedError.set(null);
-    this._loadingSelected.set(false);
   }
 
   clear(): void {
