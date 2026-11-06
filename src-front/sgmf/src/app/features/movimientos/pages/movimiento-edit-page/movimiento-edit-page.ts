@@ -102,7 +102,7 @@ export class MovimientoEditPage implements OnInit {
       );
 
       await this.router.navigate(['/movimientos']);
-    }
+    } 
   }
 
   async save(value: MovimientoFormSubmit): Promise<void> {
